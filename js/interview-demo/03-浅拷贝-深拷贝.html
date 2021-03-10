@@ -48,8 +48,9 @@
 
     // 方法二：递归遍历 -- 这种方法对所有数据类型都能实现深拷贝
     function deepClone(target) {
-      if (typeof target === 'object') {
+      if (target && typeof target === 'object') {
         let cloneTarge = Array.isArray(target) ? [] : {}
+        // let cloneTarge = typeof target.length === 'number' ? [] : {}
         for (const key in target) {
           cloneTarge[key] = deepClone(target[key])
         }

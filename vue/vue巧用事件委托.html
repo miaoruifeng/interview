@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>vue巧用事件委托</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 如果需要使用v-for给每项元素绑定事件时使用事件代理 -->
+      <ul @click="handleItem">
+        <li v-for="item in list" :key="item.id" :data-id="item.id" :title="item.name">{{item.name}}</li>
+      </ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+      const app = new Vue({
+        data: {
+          list: [
+            { id: 1, name: 'vue' },
+            { id: 2, name: 'react' },
+            { id: 3, name: 'angular' }
+          ]
+        },
+        methods: {
+          handleItem(e) {
+            console.log(e)
+            console.log(e.target.dataset.id)
+            console.log(e.target.innerHTML)
+            console.log(e.target.title)
+          }
+        }
+      }).$mount('#app')
+    </script>
+  </body>
+</html>

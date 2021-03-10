@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>防抖-节流</title>
+	<style>
+		body {
+			height: 2000px;
+		}
+	</style>
+</head>
+<body>
+	<input id="input" type="text">
+	<script>
+		/* 防抖 */
+
+		const inputDom = document.getElementById('input');
+
+		function input(value) {
+			console.log(`输出内容是${value}`);
+		}
+
+		// inputDom.addEventListener('keyup', function(e){
+		// 	input(e.target.value);
+		// })
+
+		function debounce(fn, delay) {
+			let timer;
+			return function(args) {
+				if (timer) {
+					clearTimeout(timer);
+				}
+				timer = setTimeout(() => {
+					fn.call(this, args);
+				}, delay)
+			}
+		}
+
+		const debounceInput = debounce(input, 500);
+		// inputDom.addEventListener('keyup', function(e){
+		// 	debounceInput(e.target.value);
+		// })
+
+		function showTop() {
+			const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+			console.log(`滚动条位置:${scrollTop}`);
+		}
+
+		const debounceScroll = debounce(showTop, 500);
+		// window.onscroll = debounceScroll;
+
+		/* 节流 */
+
+		function throttle(fn, delay) {
+			let valid = true;
+			return function(args) {
+				if (!valid) {
+					return false
+				}
+				valid = false;
+				setTimeout(() => {
+					fn.call(this, args);
+					valid = true;
+				}, delay)
+			}
+		}
+
+		// function throttle(fn, delay) {
+		// 	var pre = Date.now();
+		// 	return function(args) {
+		// 		var now = Date.now();
+		// 		if (now - pre >= delay) {
+		// 			fn.call(this, args);
+		// 			pre = Date.now();
+		// 		}
+		// 	}
+		// }
+
+		const throttleInput = throttle(input, 500);
+		inputDom.addEventListener('keyup', function(e){
+			throttleInput(e.target.value);
+		})
+
+		const throttleScroll = throttle(showTop, 500);
+		window.onscroll = throttleScroll;
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>{{ message }}</h1>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <script>
+      /*
+        优化是个很大的话题，涉及多个方面：
+
+        编码阶段
+          1. 第三方模块按需引入；
+          2. 使用路由懒加载、异步组件；
+          3. key 保证唯一；
+          4. v-if 和 v-for 不能连用；
+          5. 尽量减少 data 中的数据，data 中的数据都会增加 getter 和 setter，会收集对应的 watcher；
+          6. SPA 页面采用 keep-alive 缓存组件；
+          7. 如果需要使用v-for给每项元素绑定事件时使用事件代理；
+          8. 防抖、节流；
+          9. 图片懒加载；
+          10. 长列表滚动到可视区域动态加载；
+          11. 根据不同场景，区别使用 v-if 和 v-show
+
+        SEO优化
+          预渲染
+          服务端渲染 SSR
+
+        打包优化
+          压缩代码
+          Tree Shaking/Scope Hoisting
+          使用cdn加载第三方模块
+          多线程打包happypack
+          splitChunks抽离公共文件
+          sourceMap优化
+
+        用户体验
+          骨架屏
+          PWA
+      */
+      const app = new Vue({
+        data: {
+          message: 'Hello World!'
+        },
+        methods: {}
+      }).$mount('#app')
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>浅拷贝-深拷贝</title>
+</head>
+<body>
+	<script>
+		
+		function deepClone(target) {
+			if (target && typeof target === 'object') {
+				let cloneTarget = Array.isArray(target) ? [] : {};
+				// let cloneTarget = typeof target.length === 'number' ? [] : {};
+				for (const key in target) {
+					cloneTarget[key] = deepClone(target[key]);
+				}
+				return cloneTarget;
+			} else {
+				return target;
+			}
+		}
+
+		var arr = [1, [2, 3], {a: 1}, function() {}, null, undefined];
+    var result = deepClone(arr);
+    result[2].a = 'hia';
+    console.log(arr);
+    console.log(result);
+	</script>
+</body>
+</html>

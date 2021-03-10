@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>两栏布局</title>
+	<style>
+		* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .aside, .main {
+    	height: 300px;
+    }
+		.wrapper1 .aside {
+			float: left;
+			width: 200px;
+			background: #f00;
+		}
+		.wrapper1 .main {
+			margin-left: 200px;
+			background: #0f0;
+		}
+		.wrapper2 {
+			border-top: 1px solid #fff;
+		}
+		.wrapper2 .aside {
+			float: right;
+			width: 200px;
+			background: #f00;
+		}
+		.wrapper2 .main {
+			margin-right: 200px;
+			background: #0f0;
+		}
+		.wrapper3 {
+			border-top: 1px solid #fff;
+		}
+		.wrapper3 .aside {
+			float: left;
+			width: 200px;
+			background: #f00;
+		}
+		.wrapper3 .main {
+			overflow: hidden;
+			background: #0f0;
+		}
+		.wrapper4 {
+			border-top: 1px solid #fff;
+		}
+		.wrapper4 .aside {
+			float: left;
+			width: 100%;
+			background: #0f0;
+		}
+		.wrapper4 .main {
+			float: left;
+			width: 200px;
+			margin-left: -200px;
+			background: #f00;
+		}
+	</style>
+</head>
+<body>
+	<!-- float + margin-left -->
+	<div class="wrapper1">
+		<div class="aside"></div>
+		<div class="main"></div>
+	</div>
+	<!-- float + margin-right -->
+	<div class="wrapper2">
+		<div class="aside"></div>
+		<div class="main"></div>
+	</div>
+	<!-- float + BFC -->
+	<div class="wrapper3">
+		<div class="aside"></div>
+		<div class="main"></div>
+	</div>
+	<!-- 圣杯 -->
+	<div class="wrapper4">
+		<div class="aside"></div>
+		<div class="main"></div>
+	</div>
+	<!-- flex -->
+</body>
+</html>
