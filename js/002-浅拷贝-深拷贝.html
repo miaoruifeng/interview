@@ -7,8 +7,28 @@
 </head>
 <body>
 	<script>
-		
-		function deepClone(target) {
+
+    /* 浅拷贝 */
+
+    // 1. 直接用 = 赋值
+    // const a = [1, 2, 3, 4];
+    // let b = a;
+    // b[0] = 111;
+    // console.log(a, b);
+
+    // 2. Object.assign()
+    var a = [1, 2, 3, 4];
+    var b = Object.assign(a);
+    b[1] = 222;
+    console.log(a, b);
+
+    // 3. for···in只循环第一层
+
+
+    /* 深拷贝 */
+
+    // 1. 采用递归拷贝所有层级属性 deepClone()
+    function deepClone(target) {
 			if (target && typeof target === 'object') {
 				let cloneTarget = Array.isArray(target) ? [] : {};
 				// let cloneTarget = typeof target.length === 'number' ? [] : {};
@@ -23,9 +43,68 @@
 
 		var arr = [1, [2, 3], {a: 1}, function() {}, null, undefined];
     var result = deepClone(arr);
-    result[2].a = 'hia';
+    arr[2].a = 'hia';
     console.log(arr);
     console.log(result);
+
+    // 2. 采用 JSON 对象实现深拷贝 JSON.parse(JSON.stringify())
+    // 这种方法的缺点：不能实现对 function、undefined、NaN 的拷贝
+    var obj = {
+    	a: 1,
+    	b: 2
+    }
+    var cloneObj = JSON.parse(JSON.stringify(obj));
+    obj.a = 111;
+    console.log(obj);
+    console.log(cloneObj);
+
+    // 3. 通过 jQuery 的 extend 方法实现深拷贝
+  	// var array = [1,2,3,4];
+		// var newArray = $.extend(true, [], array); // true为深拷贝，false为浅拷贝
+
+		// 4. lodash 函数库实现深拷贝
+		// let result = _.cloneDeep(test);
+
+		// 5. 如果对象的value是基本类型的话，也可以用Object.assign来实现深拷贝，但是要把它赋值给一个空对象
+		var obj = {
+			a: 1,
+			b: 2
+		}
+		var obj1 = Object.assign({}, obj);
+		obj1.a = 111;
+		console.log(obj, obj1);
+
+		// 6. 用slice实现对数组的深拷贝
+		// 当数组里面的值是基本数据类型，比如String，Number，Boolean时，属于深拷贝
+		// 当数组里面的值是引用数据类型，比如Object，Array时，属于浅拷贝
+		var arr1 = ["1","2","3"]; 
+		var arr2 = arr1.slice(0);
+		arr2[1] = "9";
+		console.log("数组的原始值：" + arr1 );
+		console.log("数组的新值：" + arr2 );
+
+		// 7. 用concat实现对数组的深拷贝
+		// 当数组里面的值是基本数据类型，比如String，Number，Boolean时，属于深拷贝
+		var arr1 = ["1","2","3"];
+		var arr2 = arr1.concat();
+		arr2[1] = "9";
+		console.log("数组的原始值：" + arr1 );
+		console.log("数组的新值：" + arr2 );
+		// 当数组里面的值是引用数据类型，比如Object，Array时，属于浅拷贝
+		var arr1 = [{a:1},{b:2},{c:3}];
+		var arr2 = arr1.concat();
+		arr2[0].a = "9";
+		console.log("数组的原始值：" + arr1[0].a ); // 数组的原始值：9
+		console.log("数组的新值：" + arr2[0].a ); // 数组的新值：9
+
+		// 8. 使用扩展运算符实现深拷贝
+		// 当value是基本数据类型，比如String，Number，Boolean时，是可以使用拓展运算符进行深拷贝的
+		// 当value是引用类型的值，比如Object，Array，引用类型进行深拷贝也只是拷贝了引用地址，所以属于浅拷贝
+		var car = {brand: "BMW", price: "380000", length: "5米"}
+		var car1 = { ...car, price: "500000" }
+		console.log(car1); // { brand: "BMW", price: "500000", length: "5米" }
+		console.log(car); // { brand: "BMW", price: "380000", length: "5米" }
+
 	</script>
 </body>
 </html>
